@@ -1,0 +1,46 @@
+version: "3.9"
+services:
+  photoview:
+    container_name: photoview
+    image: viktorstrate/photoview:latest
+    ports:
+      - "${APP_PORT}:80"
+    environment:
+      - PUID=${PHOTOVIEW_PUID-1000}
+      - PGID=${PHOTOVIEW_PGID-1000}
+      - UMASK=${PHOTOVIEW_UMASK-002}
+      - TZ=${TZ}
+      - PHOTOVIEW_DATABASE_DRIVER=sqlite
+      - PHOTOVIEW_DATABASE_URL=/data/database.db
+    dns:
+      - ${DNS_IP}
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+      - ${ROOT_FOLDER_HOST}/photos:/photos
+    restart: unless-stopped
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.photoview-web-redirect.redirectscheme.scheme: "https"
+      traefik.http.services.photoview.loadbalancer.server.port: "80"
+      traefik.http.routers.photoview-insecure.rule: "Host(`${APP_DOMAIN}`)"
+      traefik.http.routers.photoview-insecure.entrypoints: "web"
+      traefik.http.routers.photoview-insecure.service: "photoview"
+      traefik.http.routers.photoview-insecure.middlewares: "photoview-web-redirect"
+      traefik.http.routers.photoview.rule: "Host(`${APP_DOMAIN}`)"
+      traefik.http.routers.photoview.entrypoints: "websecure"
+      traefik.http.routers.photoview.service: "photoview"
+      traefik.http.routers.photoview.tls.certresolver: "myresolver"
+      traefik.http.routers.photoview-local-insecure.rule: "Host(`photoview.${LOCAL_DOMAIN}`)"
+      traefik.http.routers.photoview-local-insecure.entrypoints: "web"
+      traefik.http.routers.photoview-local-insecure.service: "photoview"
+      traefik.http.routers.photoview-local-insecure.middlewares: "photoview-web-redirect"
+      traefik.http.routers.photoview-local.rule: "Host(`photoview.${LOCAL_DOMAIN}`)"
+      traefik.http.routers.photoview-local.entrypoints: "websecure"
+      traefik.http.routers.photoview-local.service: "photoview"
+      traefik.http.routers.photoview-local.tls: "true"
+      
+networks:
+  tipi_main_network:
+    external: true

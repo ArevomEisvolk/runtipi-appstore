@@ -1,0 +1,42 @@
+{
+  "$schema": "../schema.json",
+  "name": "Photoview",
+  "available": true,
+  "exposable": true,
+  "port": 80,
+  "id": "photoview",
+  "tipi_version": 2,
+  "version": "latest",
+  "categories": [
+    "media",
+    "utilities"
+  ],
+  "description": "Photoview is a fast and simple photo gallery powered by Go and Preact. It scans photos on the file system and stores detailed information about them in a database to quickly display them in a user-friendly interface.",
+  "short_desc": "Photo gallery and viewer.",
+  "author": "viktorstrate",
+  "source": "https://github.com/photoview/photoview",
+  "form_fields": [
+    {
+      "type": "number",
+      "label": "UID",
+      "hint": "Ensure any volume directories on the host are owned by the same user you specify",
+      "placeholder": "1000",
+      "env_variable": "PHOTOVIEW_PUID"
+    },
+    {
+      "type": "number",
+      "label": "GUID",
+      "hint": "Ensure any volume directories on the host are owned by the same group you specify",
+      "placeholder": "1000",
+      "env_variable": "PHOTOVIEW_PGID"
+    },
+    {
+      "type": "number",
+      "label": "UMASK",
+      "hint": "Ability to override the default umask settings for services started within the containers",
+      "placeholder": "002",
+      "env_variable": "PHOTOVIEW_UMASK"
+    }
+  ],
+  "supported_architectures": ["arm64", "amd64"]
+}
