@@ -3,7 +3,7 @@
   "name": "Photoview",
   "available": true,
   "exposable": true,
-  "port": 80,
+  "port": 8056,
   "id": "photoview",
   "tipi_version": 2,
   "version": "latest",
