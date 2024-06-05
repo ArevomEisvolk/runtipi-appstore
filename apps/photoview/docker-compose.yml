@@ -4,7 +4,7 @@ services:
     container_name: photoview
     image: viktorstrate/photoview:latest
     ports:
-      - "${APP_PORT}:80"
+      - "${APP_PORT}:8000"
     environment:
       - PUID=${PHOTOVIEW_PUID-1000}
       - PGID=${PHOTOVIEW_PGID-1000}
