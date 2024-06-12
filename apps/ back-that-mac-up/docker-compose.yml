@@ -5,19 +5,15 @@ services:
     environment:
       APP_HOST: back-that-mac-up_server_1
       APP_PORT: 80
-    networks:
-      - tipi_main_network
 
   server:
     image: getumbrel/umbrel-back-that-mac-up:1.0.1@sha256:d9561eebd791fcaaddb9885b9ace25dec42374c4ab0fe17035493a264081688c
     restart: on-failure
-    container_name: back-that-mac-up_server
     environment:
       TIME_MACHINE_DIR: "/timemachine"
     volumes:
+      # this is the entire back-that-mac-up data dir (could consider only mounting opt-timemachine subdir instead)
       - ${APP_DATA_DIR}/data:/timemachine
-    networks:
-      - tipi_main_network
 
   timemachine:
     image: mbentley/timemachine:smb-20231122@sha256:861560184a5c9f3b4f2a8bef4549ef4168d80c57a9de81b16bc5e6eead24ff3f
@@ -55,9 +51,3 @@ services:
       - ${APP_DATA_DIR}/data/var-lib-samba:/var/lib/samba
       - ${APP_DATA_DIR}/data/var-cache-samba:/var/cache/samba
       - ${APP_DATA_DIR}/data/run-samba:/run/samba
-    networks:
-      - tipi_main_network
-
-networks:
-  tipi_main_network:
-    driver: bridge

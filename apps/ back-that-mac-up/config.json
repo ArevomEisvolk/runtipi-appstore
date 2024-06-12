@@ -1,0 +1,56 @@
+{
+    "$schema": "../schema.json",
+    "name": "Time Machine",
+    "port": 445,
+    "available": true,
+    "exposable": true,
+    "id": "timemachine",
+    "tipi_version": 5,
+    "version": "smb-20231122",
+    "categories": [
+      "backup",
+      "storage"
+    ],
+    "description": "Time Machine is a backup solution compatible with Apple's Time Machine feature. It allows you to back up your macOS devices to a network drive using the SMB protocol.",
+    "short_desc": "Network backup solution compatible with Apple's Time Machine.",
+    "author": "mbentley",
+    "source": "https://github.com/mbentley/docker-timemachine",
+    "form_fields": [
+      {
+        "type": "text",
+        "label": "Advertised Hostname",
+        "default": "umbrel",
+        "required": true,
+        "env_variable": "ADVERTISED_HOSTNAME"
+      },
+      {
+        "type": "text",
+        "label": "Time Machine Username",
+        "default": "timemachine",
+        "required": true,
+        "env_variable": "TM_USERNAME"
+      },
+      {
+        "type": "password",
+        "label": "Time Machine Password",
+        "required": true,
+        "env_variable": "PASSWORD"
+      },
+      {
+        "type": "number",
+        "label": "Time Machine UID",
+        "default": 1000,
+        "required": true,
+        "env_variable": "TM_UID"
+      },
+      {
+        "type": "number",
+        "label": "Time Machine GID",
+        "default": 1000,
+        "required": true,
+        "env_variable": "TM_GID"
+      }
+    ],
+    "supported_architectures": ["arm64", "amd64"]
+  }
+  
